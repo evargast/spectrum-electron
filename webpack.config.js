@@ -1,4 +1,12 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const createElectronReloadWebpackPlugin = require('electron-reload-webpack-plugin');
+
+// Create one plugin for both renderer and main process
+const ElectronReloadWebpackPlugin = createElectronReloadWebpackPlugin({
+  path: path.join(__dirname, './dist/electron.js'),
+  logLevel: 0,
+});
 
 module.exports = [
   {
@@ -44,6 +52,11 @@ module.exports = [
           include: /src/,
           use: [{ loader: 'ts-loader' }],
         },
+        {
+          test: /\.js$/,
+          use: ['source-map-loader'],
+          enforce: 'pre',
+        },
       ],
     },
     output: {
@@ -53,10 +66,18 @@ module.exports = [
     resolve: {
       extensions: ['.tsx', '.ts', '.js', '.jsx', '.svg', '.css', '.json'],
     },
+    performance: {
+      hints: false,
+    },
+    stats: {
+      modules: false,
+    },
+
     plugins: [
       new HtmlWebpackPlugin({
         template: './src/index.html',
       }),
+      ElectronReloadWebpackPlugin(),
     ],
   },
 ];

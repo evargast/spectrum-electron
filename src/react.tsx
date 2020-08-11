@@ -7,6 +7,7 @@ import {
   Grid,
   View,
 } from '@adobe/react-spectrum';
+import './style/app.css';
 
 const Hello: FC = () => {
   return (
@@ -23,7 +24,7 @@ const Hello: FC = () => {
             This is an Electron app using React Spectrum!
           </Button>
         </View>
-        <View backgroundColor="blue-600" gridArea="sidebar" />
+        <View backgroundColor="blue-400" gridArea="sidebar" />
         <View backgroundColor="purple-600" gridArea="content" />
         <View backgroundColor="magenta-600" gridArea="footer" />
       </Grid>
